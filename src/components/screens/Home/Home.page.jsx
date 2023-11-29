@@ -1,3 +1,9 @@
+import Forms from '@/components/resources/forms/Forms';
+
 export default function HomePage() {
-	return <h1>Home Page</h1>;
+	return (
+		<>
+			<Forms />
+		</>
+	);
 }
