@@ -1,3 +1,9 @@
-export default function ChatPage(){
-	return <h1>Chat Page</h1>
+import MainLayout from '@/components/layouts/MainLayout';
+
+export default function ChatPage() {
+	return (
+		<MainLayout>
+			<h1>Chat</h1>
+		</MainLayout>
+	);
 }
