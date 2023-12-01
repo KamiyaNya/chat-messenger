@@ -1,6 +1,6 @@
-import Navigation from './Navigation/Navigation';
-import ProfileImage from './ProfileImage/ProfileImage';
-import Exit from './Exit/Exit';
+import Navigation from './navigation/Navigation';
+import ProfileImage from './profileImage/ProfileImage';
+import Exit from './exit/Exit';
 import styles from './Aside.module.scss';
 
 export default function Aside() {
