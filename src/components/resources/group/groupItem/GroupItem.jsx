@@ -3,13 +3,19 @@ import { Flex, Grid, Image, Box } from '@chakra-ui/react';
 export default function GroupItem({ chatImage, username, message, date, messageCount }) {
 	const cutMessage = message.slice(0, 60);
 	return (
-		<Flex>
+		<Flex
+			cursor='pointer'
+			_hover={{ bgColor: '#f9f9f9' }}
+			transitionProperty='background-color'
+			transitionDuration='.3s'
+			borderRadius='25px 5px 5px 25px'
+			pr='10px'>
 			<Image
 				src={chatImage}
-				boxSize={50}
+				boxSize='60px'
 				borderRadius='50%'
 				overflow='hidden'
-				minWidth='50px'
+				minWidth='60px'
 				objectFit='cover'
 			/>
 			<Box mx='30px'>
