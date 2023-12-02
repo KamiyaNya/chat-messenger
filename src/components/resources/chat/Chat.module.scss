@@ -1,0 +1,19 @@
+.chat_message {
+	border-radius: 25px;
+	font-size: 24px;
+	padding: 10px 24px 12px;
+
+	&_point {
+		border-radius: 50%;
+		width: 10px;
+		height: 10px;
+		min-width: 10px;
+	}
+
+	&_date {
+		color: #707070;
+		font-size: 20px;
+		font-weight: 300;
+		letter-spacing: 1px;
+	}
+}

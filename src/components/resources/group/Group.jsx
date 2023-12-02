@@ -22,12 +22,13 @@ export default function Group({ heading, items }) {
 				</Heading>
 				<Box
 					mt='18px'
-					maxHeight='32vh'
+					maxHeight='29.5vh'
 					height='100%'
 					overflow='auto'
-					pr='10px' _sc>
+					pr='10px'
+					>
 					{items.map((data, index) => (
-						<>
+						<Box key={data.username}>
 							{index !== 0 ? (
 								<Divider
 									my='15px'
@@ -38,14 +39,13 @@ export default function Group({ heading, items }) {
 								''
 							)}
 							<GroupItem
-								key={data.date}
 								chatImage={data.chatImage}
 								username={data.username}
 								message={data.message}
 								date={data.date}
 								messageCount={data.count}
 							/>
-						</>
+						</Box>
 					))}
 				</Box>
 			</Box>
