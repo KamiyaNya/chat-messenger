@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Box, Button, Flex, FormControl, FormLabel, Heading, Input } from '@chakra-ui/react';
+import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Spinner } from '@chakra-ui/react';
 import axios from 'axios';
 
 export default function Login({ setForm }) {
@@ -9,7 +9,7 @@ export default function Login({ setForm }) {
 	const [loading, setLoading] = useState(false);
 	const loginHandler = async () => {
 		setLoading(true);
-		const { data } = await axios.post(`http://localhost:8080/api/login`, {
+		const { data } = await axios.post(`/api/auth/login`, {
 			userEmail: login.email,
 			userPassword: login.password,
 		});
