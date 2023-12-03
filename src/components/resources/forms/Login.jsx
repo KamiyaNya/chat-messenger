@@ -1,10 +1,21 @@
 'use client';
 
-import { Box, Button, Flex, FormControl, FormLabel, Heading, Input } from '@chakra-ui/react';
 import { useState } from 'react';
+import { Box, Button, Flex, FormControl, FormLabel, Heading, Input } from '@chakra-ui/react';
+import axios from 'axios';
 
 export default function Login({ setForm }) {
 	const [login, setLogin] = useState({ email: '', password: '' });
+	const [loading, setLoading] = useState(false);
+	const loginHandler = async () => {
+		setLoading(true);
+		const { data } = await axios.post(`http://localhost:8080/api/login`, {
+			userEmail: login.email,
+			userPassword: login.password,
+		});
+		setLoading(false);
+	};
+
 	return (
 		<Flex
 			maxWidth='400px'
@@ -48,8 +59,10 @@ export default function Login({ setForm }) {
 						width='100%'
 						size='lg'
 						bg='#6E00FF'
-						_hover={{ bg: '#5A02CF' }}>
-						Войти
+						_hover={{ bg: '#5A02CF' }}
+						isDisabled={loading ? true : false}
+						onClick={loginHandler}>
+						{loading ? <Spinner /> : 'Войти'}
 					</Button>
 					<Flex mt='12px'>
 						<Box>
