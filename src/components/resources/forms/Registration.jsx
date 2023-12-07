@@ -59,21 +59,26 @@ export default function Registration({ setForm }) {
 
 	const RegisterHandler = () => {
 		return new Promise(async (resolve, reject) => {
-			setLoading(true);
-			const { data } = await axios.post(`http://localhost:8080/api/register`, {
-				userName: login.username,
-				userEmail: login.email,
-				userPassword: login.password,
-			});
-			if (!data.success) {
-				setError({ field: data.field, message: data.message });
-				reject();
-			} else {
-				setError({ field: '', message: '' });
+			try {
+				setLoading(true);
+				const { data } = await axios.post(`http://localhost:8080/api/register`, {
+					userName: login.username,
+					userEmail: login.email,
+					userPassword: login.password,
+				});
+				if (!data.success) {
+					setError({ field: data.field, message: data.message });
+					reject();
+				} else {
+					setError({ field: '', message: '' });
+				}
+				setSuccess(data.success);
+				setLoading(false);
+				resolve();
+			} catch (error) {
+				reject(error);
+				setLoading(false);
 			}
-			setSuccess(data.success);
-			setLoading(false);
-			resolve();
 		});
 	};
 

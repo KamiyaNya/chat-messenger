@@ -1,19 +1,35 @@
 'use client';
 
+import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Spinner } from '@chakra-ui/react';
 import axios from 'axios';
+import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Spinner } from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/store/slice/auth.slice';
 
 export default function Login({ setForm }) {
 	const [login, setLogin] = useState({ email: '', password: '' });
 	const [loading, setLoading] = useState(false);
+	const dispatch = useDispatch();
+	const router = useRouter();
+	const pathname = usePathname();
+	const navigateLink = pathname !== '/' ? pathname : '/home';
 	const loginHandler = async () => {
-		setLoading(true);
-		const { data } = await axios.post(`/api/auth/login`, {
-			userEmail: login.email,
-			userPassword: login.password,
-		});
-		setLoading(false);
+		try {
+			setLoading(true);
+			const { data, status } = await axios.post(`http://localhost:8080/api/login`, {
+				userEmail: login.email,
+				userPassword: login.password,
+			});
+			if (data.success) {
+				dispatch(setUser(data.payload));
+				setLoading(false);
+				router.push(navigateLink);
+			}
+			setLoading(false);
+		} catch (error) {
+			setLoading(false);
+		}
 	};
 
 	return (
