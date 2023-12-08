@@ -33,7 +33,7 @@ export default function GroupItem({ chatImage, username, message, date, messageC
 			</Box>
 			<Grid ml='auto'>
 				<Box
-					fontWight={300}
+					fontWeight={300}
 					letterSpacing='0.16px'
 					color='#7C7C7C'>
 					{date}

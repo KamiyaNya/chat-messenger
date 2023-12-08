@@ -1,10 +1,38 @@
 'use client';
 
-import { Box, Button, Flex, FormControl, FormLabel, Heading, Input } from '@chakra-ui/react';
+import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
+import axios from 'axios';
+import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Spinner } from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/store/slice/auth.slice';
+import { $api } from '@/utils/axios';
 
 export default function Login({ setForm }) {
 	const [login, setLogin] = useState({ email: '', password: '' });
+	const [loading, setLoading] = useState(false);
+	const dispatch = useDispatch();
+	const router = useRouter();
+	const pathname = usePathname();
+	const navigateLink = pathname !== '/' ? pathname : '/home';
+	const loginHandler = async () => {
+		try {
+			setLoading(true);
+			const { data, status } = await $api.post(`/login`, {
+				userEmail: login.email,
+				userPassword: login.password,
+			});
+			if (data.success) {
+				dispatch(setUser(data.payload));
+				setLoading(false);
+				router.push(navigateLink);
+			}
+			setLoading(false);
+		} catch (error) {
+			setLoading(false);
+		}
+	};
+
 	return (
 		<Flex
 			maxWidth='400px'
@@ -48,8 +76,10 @@ export default function Login({ setForm }) {
 						width='100%'
 						size='lg'
 						bg='#6E00FF'
-						_hover={{ bg: '#5A02CF' }}>
-						Войти
+						_hover={{ bg: '#5A02CF' }}
+						isDisabled={loading ? true : false}
+						onClick={loginHandler}>
+						{loading ? <Spinner /> : 'Войти'}
 					</Button>
 					<Flex mt='12px'>
 						<Box>

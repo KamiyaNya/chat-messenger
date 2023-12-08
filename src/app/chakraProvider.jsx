@@ -3,7 +3,7 @@ import { extendTheme } from '@chakra-ui/react';
 import { CacheProvider } from '@chakra-ui/next-js';
 import { ChakraProvider } from '@chakra-ui/react';
 
-export function Providers({ children }) {
+export function ChakraProviders({ children }) {
 	const theme = extendTheme({
 		styles: {
 			global: {
@@ -12,6 +12,17 @@ export function Providers({ children }) {
 					display: 'flex',
 					flexDirection: 'column',
 					background: '#eff6fc',
+				},
+			},
+		},
+		components: {
+			Input: {
+				baseStyle: {
+					_focusVisible: {
+						outline: 'none',
+						boxShadow: 'none',
+						border: '0',
+					},
 				},
 			},
 		},
