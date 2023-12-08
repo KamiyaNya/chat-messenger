@@ -3,6 +3,7 @@
 import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, Spinner, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useState } from 'react';
+import { $api } from '@/utils/axios';
 const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default function Registration({ setForm }) {
@@ -61,7 +62,7 @@ export default function Registration({ setForm }) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				setLoading(true);
-				const { data } = await axios.post(`http://localhost:8080/api/register`, {
+				const { data } = await $api.post(`/register`, {
 					userName: login.username,
 					userEmail: login.email,
 					userPassword: login.password,

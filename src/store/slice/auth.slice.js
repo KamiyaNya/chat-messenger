@@ -1,4 +1,4 @@
-const { createSlice } = require('@reduxjs/toolkit');
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	isAuth: false,
@@ -13,13 +13,13 @@ const authSlise = createSlice({
 			state.isAuth = true;
 			state.accessToken = payload.accessToken;
 		},
-		logout: (state)=>{
+		logout: (state) => {
 			state.isAuth = false;
 			state.accessToken = null;
-		}
+		},
 	},
 });
 
-export const { setUser,logout } = authSlise.actions;
+export const { setUser, logout } = authSlise.actions;
 
 export default authSlise.reducer;

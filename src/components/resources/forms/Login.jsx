@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Spinner } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/store/slice/auth.slice';
+import { $api } from '@/utils/axios';
 
 export default function Login({ setForm }) {
 	const [login, setLogin] = useState({ email: '', password: '' });
@@ -17,7 +18,7 @@ export default function Login({ setForm }) {
 	const loginHandler = async () => {
 		try {
 			setLoading(true);
-			const { data, status } = await axios.post(`http://localhost:8080/api/login`, {
+			const { data, status } = await $api.post(`/login`, {
 				userEmail: login.email,
 				userPassword: login.password,
 			});
