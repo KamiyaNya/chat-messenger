@@ -1,0 +1,6 @@
+.aside {
+	@apply flex flex-col items-center pt-[25px] pb-[40px] max-w-[130px];
+	min-height: calc(100vh - 32px);
+	background-color: #6e00ff;
+	border-radius: 25px;
+}
