@@ -10,7 +10,7 @@ export default function Exit() {
 	const router = useRouter();
 	const logoutButton = async () => {
 		try {
-			const { data } = await $api.get('/logout');
+			const { data } = await $api.get('/auth/logout');
 			dispatch(logout());
 			router.push('/');
 		} catch (error) {

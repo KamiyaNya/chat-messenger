@@ -17,12 +17,13 @@ export default function MainLayout({ children }) {
 	const checkAuth = async () => {
 		try {
 			setLoading(true);
-			const { data } = await $api.get('/is_auth');
-			dispatch(setAuth(data.payload.success));
+			const { data } = await $api.get('/auth/is_auth');
+			dispatch(setAuth(data.success));
 			setLoading(false);
 		} catch (error) {
+		console.log(error)
 			setLoading(false);
-			// router.push('/');
+			router.push('/');
 		}
 	};
 	useEffect(() => {

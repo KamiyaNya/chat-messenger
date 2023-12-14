@@ -19,7 +19,7 @@ export default function SearchField() {
 	const searchUsersAndGroups = async () => {
 		try {
 			if (debounceSearch) {
-				const { data } = await $api.get('/find_user_and_groups', {
+				const { data } = await $api.get('/users/find_user_and_groups', {
 					params: {
 						name: debounceSearch,
 					},

@@ -29,7 +29,7 @@ $api.interceptors.response.use(
 		try {
 			if (error.response) {
 				if (error.response.status === 401) {
-					const { data } = await $api.get('/refresh');
+					const { data } = await $api.get('/auth/refresh');
 					store.dispatch(setUser(data.payload));
 					return $api(config);
 				}

@@ -10,11 +10,10 @@ export default function Friends() {
 	const dispatch = useDispatch();
 
 	const getFriends = async () => {
-	try{
-		const { data } = await $api.get('/get_friends');
-		dispatch(setFriends(data.data.friends));
-	}catch(err){}
-	
+		try {
+			const { data } = await $api.get('/users/friends');
+			dispatch(setFriends(data.data.friends));
+		} catch (err) {}
 	};
 
 	useEffect(() => {

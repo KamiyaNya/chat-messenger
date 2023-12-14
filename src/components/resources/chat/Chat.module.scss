@@ -17,3 +17,17 @@
 		letter-spacing: 1px;
 	}
 }
+
+.messages {
+	scrollbar-width: thin;
+
+	&::-webkit-scrollbar-thumb {
+		width: 4px;
+	}
+	&::-webkit-scrollbar-track {
+		width: 4px;
+	}
+	&::-webkit-scrollbar-button {
+		width: 4px;
+	}
+}

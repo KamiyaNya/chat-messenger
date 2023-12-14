@@ -62,7 +62,7 @@ export default function Registration({ setForm }) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				setLoading(true);
-				const { data } = await $api.post(`/register`, {
+				const { data } = await $api.post(`/auth/register`, {
 					userName: login.username,
 					userEmail: login.email,
 					userPassword: login.password,

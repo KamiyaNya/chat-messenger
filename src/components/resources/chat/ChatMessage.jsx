@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';import dayjs from 'dayjs';
 import { Flex, Box } from '@chakra-ui/react';
 import style from './Chat.module.scss';
 
@@ -7,7 +7,7 @@ export default function ChatMessage({ userType, userMessage, userMessageDate }) 
 
 	return (
 		<Flex mt='30px'>
-			{userType !== currentUser ? (
+			{userType === currentUser ? (
 				<Box ml='auto'>
 					<Flex alignItems='flex-end'>
 						<Box
@@ -24,9 +24,8 @@ export default function ChatMessage({ userType, userMessage, userMessageDate }) 
 					{userMessageDate ? (
 						<Box
 							className={style.chat_message_date}
-							textAlign='right'
-							mr='40px'>
-							{userMessageDate}
+							textAlign='right'>
+							{dayjs(userMessageDate).format('DD/MM HH:mm')}
 						</Box>
 					) : (
 						''
@@ -50,7 +49,7 @@ export default function ChatMessage({ userType, userMessage, userMessageDate }) 
 						<Box
 							ml='40px'
 							className={style.chat_message_date}>
-							{userMessageDate}
+							{dayjs(userMessageDate).format('DD/MM HH:mm')}
 						</Box>
 					) : (
 						''

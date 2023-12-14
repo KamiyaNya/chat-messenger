@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { $api } from '@/utils/axios';
 import { useDispatch } from 'react-redux';
 import { setCurrentFriend } from '@/store/slice/users.slice';
+import { socket } from '@/utils/socket';
 export default function GroupItem({ chatImage, username, message, date, messageCount, roomId, userId, userOnline, userLastOnline }) {
 	const dispatch = useDispatch();
 
@@ -19,9 +20,13 @@ export default function GroupItem({ chatImage, username, message, date, messageC
 				roomId: newRoomId,
 				userId: userId,
 			});
+
+			socket.emit('join-room', { room: newRoomId });
 		} else {
 			router.push(`${pathname}?room=${roomId}`);
+			socket.emit('join-room', { room: roomId });
 		}
+
 		dispatch(setCurrentFriend({ friendName: username, friendOnline: userOnline, friendLastOnline: userLastOnline, friendImage: chatImage }));
 	};
 

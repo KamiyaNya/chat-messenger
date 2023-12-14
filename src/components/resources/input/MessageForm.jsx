@@ -1,18 +1,24 @@
-import { useState } from 'react';
+import dayjs from 'dayjs';
+import { useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useSelector, useDispatch } from 'react-redux';
 import { Flex, Box, Button, Textarea } from '@chakra-ui/react';
 import { Camera, Laugh, Paperclip, SendHorizontal } from 'lucide-react';
-import {useSelector} from 'react-redux'
 import { socket } from '@/utils/socket';
+import { setMessage } from '@/store/slice/messages.slice';
 
 export default function MessageForm() {
 	const [text, setText] = useState('');
+	const dispatch = useDispatch();
+	const { currentUser } = useSelector((state) => state.auth);
 	const searchParams = useSearchParams();
 	const room = searchParams.get('room');
-const {currentUser} = useSelector(state=>state.auth)
 
 	const sendMessage = () => {
-		socket.emit('chat-message', { message: text, room: room, userId: currentUser });
+		const messageData = { message: text, room: room, userId: currentUser, createdAt: dayjs().format() };
+		socket.emit('chat-message', messageData);
+		dispatch(setMessage(messageData));
+		setText('');
 	};
 
 	return (
@@ -62,7 +68,8 @@ const {currentUser} = useSelector(state=>state.auth)
 				ml='20px'
 				color='#FFF'
 				bgColor='#6e00ff'
-				_hover={{ bgColor: 'rgba(97, 45, 209, 0.9)' }} onClick={sendMessage}>
+				_hover={{ bgColor: 'rgba(97, 45, 209, 0.9)' }}
+				onClick={sendMessage}>
 				<SendHorizontal
 					size='38px'
 					strokeWidth='1.5px'

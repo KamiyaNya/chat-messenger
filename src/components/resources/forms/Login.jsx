@@ -18,7 +18,7 @@ export default function Login({ setForm }) {
 	const loginHandler = async () => {
 		try {
 			setLoading(true);
-			const { data, status } = await $api.post(`/login`, {
+			const { data, status } = await $api.post(`/auth/login`, {
 				userEmail: login.email,
 				userPassword: login.password,
 			});
