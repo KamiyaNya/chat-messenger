@@ -20,13 +20,14 @@ export default function ChatMain() {
 	const room = searchParams.get('room');
 	const isExist = rooms.some((roomId) => roomId === room);
 	if (!isExist) {
-		socket.emit('join-room', { room: room });
+		socket.socket.emit('join-room', { room: room });
 		dispatch(addToRoom(room));
 	}
-	socket.on('send-message-to-client', (body) => {
-		console.log(socket.id);
-		dispatch(setMessage(body));
-	});
+	useEffect(() => {
+		socket.socket.on('send-message-to-client', (body) => {
+			dispatch(setMessage(body));
+		});
+	}, []);
 
 	useEffect(() => {
 		dispatch(fetchRoomMessages(room));

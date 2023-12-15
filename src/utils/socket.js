@@ -1,6 +1,21 @@
 import { io } from 'socket.io-client';
 import { config } from '@/config';
 
-export const socket = io(config.server);
+class SocketApi {
+	constructor() {
+		this.socket = null;
+	}
 
-console.log(socket);
+	socketConnect() {
+		if (this.socket) {
+			this.socketDisconnect();
+		}
+		this.socket = io(config.server);
+	}
+
+	socketDisconnect() {
+		this.socket.disconnect();
+	}
+}
+
+export const socket = new SocketApi();

@@ -16,7 +16,7 @@ export default function MessageForm() {
 
 	const sendMessage = () => {
 		const messageData = { message: text, room: room, userId: currentUser, createdAt: dayjs().format() };
-		socket.emit('chat-message', messageData);
+		socket.socket.emit('chat-message', messageData);
 		dispatch(setMessage(messageData));
 		setText('');
 	};
