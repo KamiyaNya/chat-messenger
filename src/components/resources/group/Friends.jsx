@@ -60,7 +60,7 @@ export default function Friends() {
 								message={friend.message}
 								date={friend.date}
 								messageCount={friend.count}
-								roomId={friend.roomUUId}
+								roomId={friend.roomUUID}
 								userId={friend.id}
 								userOnline={friend.userOnline}
 								userLastOnline={friend.userLastOnline}

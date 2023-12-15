@@ -4,6 +4,7 @@ const initialState = {
 	isAuth: false,
 	accessToken: null,
 	currentUser: null,
+	user: null,
 };
 
 const authSlise = createSlice({
@@ -13,7 +14,8 @@ const authSlise = createSlice({
 		setUser: (state, { payload }) => {
 			state.isAuth = true;
 			state.accessToken = payload.accessToken;
-			state.currentUser = payload.id;
+			state.currentUser = payload.user.id;
+			state.user = payload.user;
 		},
 		setAuth: (state, { payload }) => {
 			state.isAuth = payload;
@@ -22,10 +24,15 @@ const authSlise = createSlice({
 			state.isAuth = false;
 			state.accessToken = null;
 			state.currentUser = null;
+			state.user = null;
+		},
+		setToken: (state, { payload }) => {
+			state.isAuth = true;
+			state.accessToken = payload.accessToken;
 		},
 	},
 });
 
-export const { setUser, logout, setAuth } = authSlise.actions;
+export const { setUser, logout, setAuth,setToken } = authSlise.actions;
 
 export default authSlise.reducer;

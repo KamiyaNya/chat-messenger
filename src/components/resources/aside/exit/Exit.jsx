@@ -2,8 +2,10 @@ import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { Flex } from '@chakra-ui/react';
 import { LogOut } from 'lucide-react';
-import { logout } from '@/store/slice/auth.slice';
+
 import { $api } from '@/utils/axios';
+import { socket } from '@/utils/socket';
+import { logout } from '@/store/slice/auth.slice';
 
 export default function Exit() {
 	const dispatch = useDispatch();
@@ -12,6 +14,7 @@ export default function Exit() {
 		try {
 			const { data } = await $api.get('/auth/logout');
 			dispatch(logout());
+			socket.disconnect();
 			router.push('/');
 		} catch (error) {
 			console.log(error);

@@ -6,18 +6,25 @@ import { Flex, Box } from '@chakra-ui/react';
 import 'dayjs/locale/ru';
 
 import { socket } from '@/utils/socket';
+import { addToRoom } from '@/store/slice/room.slice';
 import style from '@/components/resources/chat/Chat.module.scss';
 import ChatMessage from '@/components/resources/chat/ChatMessage';
 import { fetchRoomMessages, setMessage } from '@/store/slice/messages.slice';
 
 export default function ChatMain() {
+	const ref = useRef();
 	const { messages } = useSelector((state) => state.message);
+	const { rooms } = useSelector((state) => state.room);
 	const searchParams = useSearchParams();
 	const dispatch = useDispatch();
 	const room = searchParams.get('room');
-	const ref = useRef();
-
+	const isExist = rooms.some((roomId) => roomId === room);
+	if (!isExist) {
+		socket.emit('join-room', { room: room });
+		dispatch(addToRoom(room));
+	}
 	socket.on('send-message-to-client', (body) => {
+		console.log(socket.id);
 		dispatch(setMessage(body));
 	});
 
@@ -31,8 +38,6 @@ export default function ChatMain() {
 		}, 0);
 		ref.current.scrollTo(0, y);
 	}, [messages]);
-
-	console.log(ref);
 
 	return (
 		<Flex

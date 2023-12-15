@@ -23,7 +23,8 @@ export default function Login({ setForm }) {
 				userPassword: login.password,
 			});
 			if (data.success) {
-				dispatch(setUser(data.payload));
+				const user = data.data;
+				dispatch(setUser(user));
 				setLoading(false);
 				router.push(navigateLink);
 			}

@@ -1,32 +1,17 @@
 'use client';
 import { usePathname, useRouter } from 'next/navigation';
 import { Flex, Grid, Image, Box } from '@chakra-ui/react';
-import { v4 as uuidv4 } from 'uuid';
-import { $api } from '@/utils/axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentFriend } from '@/store/slice/users.slice';
-import { socket } from '@/utils/socket';
+
 export default function GroupItem({ chatImage, username, message, date, messageCount, roomId, userId, userOnline, userLastOnline }) {
+
 	const dispatch = useDispatch();
 
 	const pathname = usePathname();
 	const router = useRouter();
 	const joinRoom = async () => {
-		if (!roomId) {
-			const newRoomId = uuidv4();
-			router.push(`${pathname}?room=${newRoomId}`);
-
-			await $api.post('/chat/create_room', {
-				roomId: newRoomId,
-				userId: userId,
-			});
-
-			socket.emit('join-room', { room: newRoomId });
-		} else {
-			router.push(`${pathname}?room=${roomId}`);
-			socket.emit('join-room', { room: roomId });
-		}
-
+		router.push(`${pathname}?room=${roomId}`);
 		dispatch(setCurrentFriend({ friendName: username, friendOnline: userOnline, friendLastOnline: userLastOnline, friendImage: chatImage }));
 	};
 

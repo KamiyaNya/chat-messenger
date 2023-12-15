@@ -18,8 +18,6 @@ export default function App({ Component, pageProps }) {
 		styles: {
 			global: {
 				body: {
-					minHeight: '100vh',
-					display: 'flex',
 					flexDirection: 'column',
 					background: '#eff6fc',
 				},

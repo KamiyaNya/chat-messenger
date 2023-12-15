@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { store } from './../store/store';
-import { setUser } from '@/store/slice/auth.slice';
+import { setToken } from '@/store/slice/auth.slice';
 
 export const $api = axios.create({
 	baseURL: 'http://localhost:8080/api',
@@ -30,14 +30,11 @@ $api.interceptors.response.use(
 			if (error.response) {
 				if (error.response.status === 401) {
 					const { data } = await $api.get('/auth/refresh');
-					store.dispatch(setUser(data.payload));
+					store.dispatch(setToken(data.payload));
+					config.headers.Authorization = `Bearer ${data.payload.accessToken}`;
 					return $api(config);
 				}
 			}
-
-			return Promise.reject(error);
-		} catch (error) {
-			return Promise.reject(error);
-		}
+		} catch (error) {}
 	}
 );

@@ -7,7 +7,7 @@ import Aside from '@/components/resources/aside/Aside';
 import styles from '@/components/layouts/MainLayout.module.scss';
 import Forms from '@/components/resources/forms/Forms';
 import { $api } from '@/utils/axios';
-import { setAuth } from '@/store/slice/auth.slice';
+import { logout, setAuth } from '@/store/slice/auth.slice';
 
 export default function MainLayout({ children }) {
 	const { isAuth } = useSelector((state) => state.auth);
@@ -21,8 +21,8 @@ export default function MainLayout({ children }) {
 			dispatch(setAuth(data.success));
 			setLoading(false);
 		} catch (error) {
-		console.log(error)
 			setLoading(false);
+			dispatch(logout());
 			router.push('/');
 		}
 	};
