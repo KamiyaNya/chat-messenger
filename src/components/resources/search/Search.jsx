@@ -27,7 +27,6 @@ export default function SearchField() {
 
 				const { users, friends, groups } = data.data;
 				dispatch(setUsers(users));
-				dispatch(setFriends(friends));
 			} else {
 				clearField();
 			}
