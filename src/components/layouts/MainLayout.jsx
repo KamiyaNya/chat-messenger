@@ -1,11 +1,13 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Skeleton } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Aside from '@/components/resources/aside/Aside';
-import styles from '@/components/layouts/MainLayout.module.scss';
 import Forms from '@/components/resources/forms/Forms';
+
+import styles from '@/components/layouts/MainLayout.module.scss';
 import { $api } from '@/utils/axios';
 import { logout, setAuth } from '@/store/slice/auth.slice';
 
