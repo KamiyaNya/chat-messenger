@@ -1,20 +1,22 @@
-'use client';
 import { useState } from 'react';
-import { Flex, Grid, Image, Box, Button } from '@chakra-ui/react';
-import { $api } from '@/utils/axios';
-export default function UserItem({ chatImage, username, userId }) {
-	const [isFriend, setToFriend] = useState(false);
+import { Flex, Image, Box, Button } from '@chakra-ui/react';
 
-	const addToFriend = async () => {
+import { $api } from '@/utils/axios';
+
+export default function UserItem({ chatImage, username, userId }) {
+	const [isSend, setIsSend] = useState(false);
+
+	const sendInviteToRoom = async () => {
 		try {
-			const { data } = await $api.post('/chat/add_to_friend', { friendId: userId });
-			if (data.data.success) {
-				setToFriend(true);
+			const { data } = await $api.post('/users/create_invite_to_personal_room', { userId: userId });
+			if (data.success) {
+				setIsSend(true);
 			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
 	return (
 		<Flex
 			cursor='pointer'
@@ -59,9 +61,9 @@ export default function UserItem({ chatImage, username, userId }) {
 				colorScheme='purple'
 				ml='auto'
 				my='auto'
-				onClick={addToFriend}
-				isDisabled={isFriend ? true : false}>
-				{isFriend ? 'Добавлен' : 'Добавить'}
+				onClick={sendInviteToRoom}
+				isDisabled={isSend ? true : false}>
+				{isSend ? 'Отправлено' : 'Отправить'}
 			</Button>
 		</Flex>
 	);
