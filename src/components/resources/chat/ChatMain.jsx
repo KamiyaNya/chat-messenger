@@ -25,7 +25,9 @@ export default function ChatMain() {
 	}
 	useEffect(() => {
 		socket.socket.on('send-message-to-client', (body) => {
-			dispatch(setMessage(body));
+			if (room === body.roomUUID) {
+				dispatch(setMessage(body));
+			}
 		});
 	}, []);
 
