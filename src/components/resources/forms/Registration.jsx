@@ -1,7 +1,6 @@
 'use client';
 
-import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, Spinner, useToast } from '@chakra-ui/react';
-import axios from 'axios';
+import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Spinner, useToast } from '@chakra-ui/react';
 import { useState } from 'react';
 import { $api } from '@/utils/axios';
 const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
