@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 
 import styles from './ProfileImage.module.scss';
@@ -22,11 +22,15 @@ export default function ProfileImage() {
 					width={80}
 					height={100}
 				/>
-			) : (
-				<Box
+			) : user && user.userName ? (
+				<Flex
 					bgColor='#5322bc'
 					width='100%'
-					height='100%'></Box>
+					height='100%' color='#fff' justifyContent='center' alignItems='center' fontSize='42px'>
+					{user.userName.split('')[0].toUpperCase()}
+				</Flex>
+			) : (
+				''
 			)}
 		</Box>
 	);
