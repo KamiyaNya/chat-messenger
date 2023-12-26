@@ -13,6 +13,7 @@ class SocketApi {
 
 	socketDisconnect() {
 		this.socket.disconnect();
+		this.socket = null;
 	}
 }
 
