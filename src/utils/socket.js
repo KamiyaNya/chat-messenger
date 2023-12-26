@@ -7,9 +7,7 @@ class SocketApi {
 	}
 
 	socketConnect() {
-		if (this.socket) {
-			this.socketDisconnect();
-		}
+		if (this.socket) return;
 		this.socket = io(config.server);
 	}
 
