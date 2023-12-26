@@ -5,17 +5,19 @@ import { LogOut } from 'lucide-react';
 
 import { $api } from '@/utils/axios';
 import { logout } from '@/store/slice/auth.slice';
+import { socket } from '@/utils/socket';
 
 export default function Exit() {
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const logoutButton = async () => {
 		try {
-			const { data } = await $api.get('/auth/logout');
+			await $api.get('/auth/logout');
+			socket.socketDisconnect();
 			dispatch(logout());
 			router.push('/');
 		} catch (error) {
-			console.log(error);
+			socket.socketDisconnect();
 		}
 	};
 

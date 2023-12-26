@@ -2,6 +2,7 @@ import axios from 'axios';
 import { store } from './../store/store';
 import { setToken } from '@/store/slice/auth.slice';
 import { config } from '@/config';
+import { socket } from '@/utils/socket';
 
 export const $api = axios.create({
 	baseURL: config.server + '/api',
@@ -35,7 +36,11 @@ $api.interceptors.response.use(
 					config.headers.Authorization = `Bearer ${data.payload.accessToken}`;
 					return $api(config);
 				}
+
+				socket.socketDisconnect();
 			}
-		} catch (error) {}
+		} catch (error) {
+			socket.socketDisconnect();
+		}
 	}
 );
