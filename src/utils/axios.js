@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { store } from './../store/store';
 import { setToken } from '@/store/slice/auth.slice';
+import { config } from '@/config';
 
 export const $api = axios.create({
-	baseURL: 'http://localhost:8080/api',
+	baseURL: config.server + '/api',
 	withCredentials: true,
 });
 
